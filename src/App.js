@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
-const endpoint = 'https://yts.mx/api/v2/list_movies.json'
+import Movie from './movie'
+import './app.css'
+const endpoint = 'https://yts.mx/api/v2/list_movies.json?sort_by=rating'
 
 export class App extends Component {
   state = {
@@ -23,11 +24,27 @@ export class App extends Component {
   }
 
   render() {
-    const { isLoading } = this.state
+    const { isLoading, movies } = this.state
     return (
-      <div>
-        {isLoading ? "Loading..." : "We are ready"}
-      </div>
+      <section className="container">
+        {
+          isLoading ?
+            (<div className="loader">
+              <span className="loader__text">Loading</span>
+            </div>)
+            : (
+              <div className="movies">
+                {movies.map(movie => (
+                  <Movie
+                    key={movie.id}
+                    year={movie.year}
+                    title={movie.title}
+                    summary={movie.summary}
+                    poster={movie.medium_cover_image}
+                  />))}
+              </div>
+            )}
+      </section>
     )
   }
 }
