@@ -14,7 +14,7 @@ function Movie({ title, year, summary, poster, genres }) {
                         genres.map((genre, index) => <li key={index} className="movie_genre">{genre}</li>)
                     }
                 </ul>
-                <p className="movie_summary">{summary}</p>
+                <p className="movie_summary">{summary.length >= 180 ? summary.slice(0, 180) + "..." : summary}</p>
             </div>
         </div>
     )
